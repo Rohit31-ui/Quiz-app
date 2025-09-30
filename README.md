@@ -97,8 +97,6 @@ You can test the API using **Postman** or **VS Code REST Client**.
 ### 4️⃣ Get Quiz Questions
 **GET** `/api/quizzes/:quizId/questions`
 
-> ⚠️ No automated unit tests are included yet. Manual testing via Postman or REST Client is recommended.
-
 ---
 
 ## 💡 Assumptions and Design Choices
@@ -124,17 +122,12 @@ You can test the API using **Postman** or **VS Code REST Client**.
 
 ---
 
-## 🔮 Future Enhancements
-
-- Implement scoring logic for `submitQuiz` endpoint  
-- Add automated unit tests for all API endpoints  
-- Add user authentication and quiz attempt tracking  
-- Deploy API to cloud (Heroku, Render, or Vercel)
+## 🔗 GitHub Repository
+- [quiz app](https://github.com/Rohit31-ui/Quiz-app.git)
 
 ---
 
-## 🔗 GitHub Repository
-[rohit lad](<YOUR_REPO_URL>)
+## 📫 Contact
 
-
-## connect with me
+- **Email:** [rohitlad012@gmail.com](mailto:rohitlad012@gmail.com)  
+- **LinkedIn:** [https://www.linkedin.com/in/rohit-lad-1550b4259/](https://www.linkedin.com/in/rohit-lad-1550b4259/)
