@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const optionSchema = new mongoose.Schema({
-    quiestionId:{
+    questionId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Question",
         required:true

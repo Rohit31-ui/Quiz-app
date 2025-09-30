@@ -12,25 +12,23 @@ const createQuiz = async (req, res) => {
   }
 };
 
-//Add Question
+// Add Question + Options
 const addQuestion = async (req, res) => {
   try {
     const { text, type, options } = req.body;
 
-    // Validation
+    //validation
     if (type === "text" && text.length > 300) {
       return res.status(400).json({ error: "Text question exceeds 300 chars" });
-    }
+    } 
 
 
     if (type !== "text") {
-      //option validation
       if (!options || options.length < 2) {
         return res.status(400).json({ error: "At least 2 options are required" });
       }
 
       const correctCount = options.filter(opt => opt.isCorrect).length;
-
       
       if (type === "single" && correctCount !== 1) {
         return res.status(400).json({ error: "Single choice must have exactly 1 correct option" });
@@ -41,11 +39,13 @@ const addQuestion = async (req, res) => {
       }
     }
 
+    //save to database
     const question = await Question.create({
       quizId: req.params.quizId,
       text,
       type,
     });
+
 
     let savedOptions = [];
     if (type !== "text") {
@@ -76,19 +76,25 @@ const getAllQuizzes = async (req, res) => {
   }
 };
 
-// Submit Quiz (basic version)
-const submitQuiz = async (req, res) => {
+//  Get Questions for a Specific Quiz
+const getQuizQuestions = async (req, res) => {
   try {
-    res.json({ message: "Quiz submitted successfully" });
+    const questions = await Question.find({ quizId: req.params.quizId }).lean();
+    const questionsWithOptions = await Promise.all(
+      questions.map(async (q) => {
+        const options = await Option.find({ questionId: q._id }).lean();
+        return { ...q, options };
+      })
+    );
+    res.json({ quizId: req.params.quizId, questions: questionsWithOptions });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-
 export default {
   createQuiz,
   addQuestion,
   getAllQuizzes,
-  submitQuiz,
+  getQuizQuestions,
 };
